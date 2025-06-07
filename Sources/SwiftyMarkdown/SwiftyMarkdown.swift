@@ -559,6 +559,7 @@ extension SwiftyMarkdown {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: interval, options: [:]), NSTextTab(textAlignment: .left, location: interval, options: [:])]
             paragraphStyle.defaultTabInterval = interval
+            paragraphStyle.firstLineHeadIndent = addition
             paragraphStyle.headIndent = addition
 
             attributes[.paragraphStyle] = paragraphStyle
