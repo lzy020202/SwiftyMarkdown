@@ -477,15 +477,13 @@ extension SwiftyMarkdown {
 			if markdownLineStyle == .orderedListIndentSecondOrder {
 				listItem = "\(self.orderedListIndentSecondOrderCount)."
 			}
-        case .unorderedList:
-            listItem = "•"
+            
         case .unorderedCustomListIndentFirstOrder:
             self.orderedListIndentFirstOrderCount += 1
             self.orderedListIndentSecondOrderCount = 0
-            listItem = "◦"
+            
         case .unorderedCustomListIndentSecondOrder:
             self.orderedListIndentSecondOrderCount += 1
-            listItem = "▪"
 		default:
 			self.orderedListCount = 0
 			self.orderedListIndentFirstOrderCount = 0
@@ -517,7 +515,7 @@ extension SwiftyMarkdown {
 			paragraphStyle.firstLineHeadIndent = 20.0
 			paragraphStyle.headIndent = 20.0
 			attributes[.paragraphStyle] = paragraphStyle
-		case .unorderedList, .unorderedListIndentFirstOrder, .unorderedListIndentSecondOrder, .orderedList, .orderedListIndentFirstOrder, .orderedListIndentSecondOrder:
+		case .unorderedListIndentFirstOrder, .unorderedListIndentSecondOrder, .orderedList, .orderedListIndentFirstOrder, .orderedListIndentSecondOrder:
 			
 			let interval : CGFloat = 30
 			var addition = interval
@@ -542,9 +540,9 @@ extension SwiftyMarkdown {
 
 			attributes[.paragraphStyle] = paragraphStyle
 			finalTokens.insert(Token(type: .string, inputString: "\(indent)\(listItem)\t"), at: 0)
-        case .unorderedCustomListIndentFirstOrder, .unorderedCustomListIndentSecondOrder:
+        case .unorderedList, .unorderedCustomListIndentFirstOrder, .unorderedCustomListIndentSecondOrder:
             
-            let interval : CGFloat = 30
+            let interval : CGFloat = 20
             var addition = interval
             var indent = ""
             switch line.lineStyle as! MarkdownLineStyle {
