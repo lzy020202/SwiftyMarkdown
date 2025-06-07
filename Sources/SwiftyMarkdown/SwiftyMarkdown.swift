@@ -549,12 +549,15 @@ extension SwiftyMarkdown {
             case .unorderedList:
                 addition = interval * 0
                 indent = ""
+                listItem = "●"
             case .unorderedCustomListIndentFirstOrder:
                 addition = interval * 1
                 indent = "  "
+                listItem = "■"
             case .unorderedCustomListIndentSecondOrder:
                 addition = interval * 2
                 indent = "    "
+                listItem = "□"
             default:
                 break
             }
