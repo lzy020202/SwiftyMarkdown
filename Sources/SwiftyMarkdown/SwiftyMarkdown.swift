@@ -160,6 +160,8 @@ If that is not set, then the system default will be used.
 		LineRule(token: "-", type: MarkdownLineStyle.previousH2, removeFrom: .entireLine, changeAppliesTo: .previous),
 		LineRule(token: "\t\t- ", type: MarkdownLineStyle.unorderedListIndentSecondOrder, removeFrom: .leading, shouldTrim: false),
 		LineRule(token: "\t- ", type: MarkdownLineStyle.unorderedListIndentFirstOrder, removeFrom: .leading, shouldTrim: false),
+        LineRule(token: "  - ", type: MarkdownLineStyle.unorderedListIndentSecondOrder, removeFrom: .leading, shouldTrim: false),
+        LineRule(token: " - ", type: MarkdownLineStyle.unorderedListIndentFirstOrder, removeFrom: .leading, shouldTrim: false),
 		LineRule(token: "- ",type : MarkdownLineStyle.unorderedList, removeFrom: .leading),
 		LineRule(token: "\t\t* ", type: MarkdownLineStyle.unorderedListIndentSecondOrder, removeFrom: .leading, shouldTrim: false),
 		LineRule(token: "\t* ", type: MarkdownLineStyle.unorderedListIndentFirstOrder, removeFrom: .leading, shouldTrim: false),
