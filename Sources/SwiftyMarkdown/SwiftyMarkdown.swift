@@ -546,10 +546,10 @@ extension SwiftyMarkdown {
             switch line.lineStyle as! MarkdownLineStyle {
             case .unorderedCustomListIndentFirstOrder:
                 addition = interval * 2
-                indent = "  "
+                indent = "\t"
             case .unorderedCustomListIndentSecondOrder:
                 addition = interval * 3
-                indent = "    "
+                indent = "\t\t"
             default:
                 break
             }
@@ -563,7 +563,7 @@ extension SwiftyMarkdown {
             paragraphStyle.headIndent = addition
 
             attributes[.paragraphStyle] = paragraphStyle
-            finalTokens.insert(Token(type: .string, inputString: "\(indent)\(listItem)\t"), at: 0)
+            finalTokens.insert(Token(type: .string, inputString: "\(indent)\(listItem)"), at: 0)
 		case .yaml:
 			lineProperties = body
 		case .previousH1:
