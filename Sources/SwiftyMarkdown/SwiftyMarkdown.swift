@@ -560,7 +560,7 @@ extension SwiftyMarkdown {
 //            paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: interval, options: [:]), NSTextTab(textAlignment: .left, location: interval, options: [:])]
             paragraphStyle.defaultTabInterval = interval
             paragraphStyle.firstLineHeadIndent = addition
-            paragraphStyle.headIndent = addition
+            paragraphStyle.headIndent = addition + addition
 
             attributes[.paragraphStyle] = paragraphStyle
             finalTokens.insert(Token(type: .string, inputString: "\(indent)\(listItem)"), at: 0)
