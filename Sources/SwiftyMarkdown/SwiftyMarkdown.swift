@@ -546,10 +546,10 @@ extension SwiftyMarkdown {
             switch line.lineStyle as! MarkdownLineStyle {
             case .unorderedCustomListIndentFirstOrder:
                 addition = interval * 2
-                indent = "\t"
+                indent = "  "
             case .unorderedCustomListIndentSecondOrder:
                 addition = interval * 3
-                indent = "\t\t"
+                indent = "    "
             default:
                 break
             }
