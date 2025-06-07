@@ -545,10 +545,10 @@ extension SwiftyMarkdown {
             var indent = ""
             switch line.lineStyle as! MarkdownLineStyle {
             case .unorderedCustomListIndentFirstOrder:
-                addition = interval * 2
+                addition = interval * 1
                 indent = "  "
             case .unorderedCustomListIndentSecondOrder:
-                addition = interval * 3
+                addition = interval * 2
                 indent = "    "
             default:
                 break
@@ -560,7 +560,7 @@ extension SwiftyMarkdown {
             paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: interval, options: [:]), NSTextTab(textAlignment: .left, location: interval, options: [:])]
             paragraphStyle.defaultTabInterval = interval
             paragraphStyle.firstLineHeadIndent = addition
-            paragraphStyle.headIndent = addition
+            paragraphStyle.headIndent = addition + 20
 
             attributes[.paragraphStyle] = paragraphStyle
             finalTokens.insert(Token(type: .string, inputString: "\(listItem)  "), at: 0)
