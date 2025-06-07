@@ -126,7 +126,17 @@ extension SwiftyMarkdown {
 				font = UIFont.preferredFont(forTextStyle: textStyle)
 			}
 		} else {
-			font = UIFont.preferredFont(forTextStyle: textStyle)
+            let finalSize: CGFloat
+            if let existentFontSize = fontSize {
+                finalSize = existentFontSize
+            } else {
+                let styleDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle)
+                finalSize = styleDescriptor.fontAttributes[.size] as? CGFloat ?? 14
+            }
+            let systemFont = UIFont.preferredFont(forTextStyle: textStyle).withSize(finalSize)
+            let fontMetrics = UIFontMetrics(forTextStyle: textStyle)
+            font = fontMetrics.scaledFont(for: systemFont) // 支持动态字体缩放
+//			font = UIFont.preferredFont(forTextStyle: textStyle)
 		}
 		
 		if globalItalic, let italicDescriptor = font.fontDescriptor.withSymbolicTraits(.traitItalic) {
