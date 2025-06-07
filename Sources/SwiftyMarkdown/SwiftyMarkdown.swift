@@ -458,6 +458,7 @@ extension SwiftyMarkdown {
 		}
 		
 		var listItem = self.bullet
+        
 		switch markdownLineStyle {
 		case .orderedList:
 			self.orderedListCount += 1
@@ -476,12 +477,15 @@ extension SwiftyMarkdown {
 			if markdownLineStyle == .orderedListIndentSecondOrder {
 				listItem = "\(self.orderedListIndentSecondOrderCount)."
 			}
+        case .unorderedList:
+            listItem = "•"
         case .unorderedCustomListIndentFirstOrder:
             self.orderedListIndentFirstOrderCount += 1
             self.orderedListIndentSecondOrderCount = 0
-            
+            listItem = "◦"
         case .unorderedCustomListIndentSecondOrder:
             self.orderedListIndentSecondOrderCount += 1
+            listItem = "▪"
 		default:
 			self.orderedListCount = 0
 			self.orderedListIndentFirstOrderCount = 0
@@ -560,7 +564,7 @@ extension SwiftyMarkdown {
             paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: interval, options: [:]), NSTextTab(textAlignment: .left, location: interval, options: [:])]
             paragraphStyle.defaultTabInterval = interval
             paragraphStyle.firstLineHeadIndent = addition
-            paragraphStyle.headIndent = addition + 20
+            paragraphStyle.headIndent = addition + 25
 
             attributes[.paragraphStyle] = paragraphStyle
             finalTokens.insert(Token(type: .string, inputString: "\(listItem)  "), at: 0)
