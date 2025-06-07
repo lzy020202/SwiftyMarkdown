@@ -540,7 +540,7 @@ extension SwiftyMarkdown {
 			finalTokens.insert(Token(type: .string, inputString: "\(indent)\(listItem)\t"), at: 0)
         case .unorderedCustomListIndentFirstOrder, .unorderedCustomListIndentSecondOrder:
             
-            let interval : CGFloat = 15
+            let interval : CGFloat = 30
             var addition = interval
             var indent = ""
             switch line.lineStyle as! MarkdownLineStyle {
