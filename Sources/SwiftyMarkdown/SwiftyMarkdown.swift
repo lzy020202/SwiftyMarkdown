@@ -61,6 +61,8 @@ enum MarkdownLineStyle : LineStyling {
     case unorderedList
 	case unorderedListIndentFirstOrder
 	case unorderedListIndentSecondOrder
+    case unorderedCustomListIndentFirstOrder
+    case unorderedCustomListIndentSecondOrder
     case orderedList
 	case orderedListIndentFirstOrder
 	case orderedListIndentSecondOrder
@@ -160,8 +162,8 @@ If that is not set, then the system default will be used.
 		LineRule(token: "-", type: MarkdownLineStyle.previousH2, removeFrom: .entireLine, changeAppliesTo: .previous),
 		LineRule(token: "\t\t- ", type: MarkdownLineStyle.unorderedListIndentSecondOrder, removeFrom: .leading, shouldTrim: false),
 		LineRule(token: "\t- ", type: MarkdownLineStyle.unorderedListIndentFirstOrder, removeFrom: .leading, shouldTrim: false),
-        LineRule(token: "  - ", type: MarkdownLineStyle.unorderedListIndentSecondOrder, removeFrom: .leading, shouldTrim: false),
-        LineRule(token: " - ", type: MarkdownLineStyle.unorderedListIndentFirstOrder, removeFrom: .leading, shouldTrim: false),
+        LineRule(token: "    - ", type: MarkdownLineStyle.unorderedCustomListIndentSecondOrder, removeFrom: .leading, shouldTrim: false),
+        LineRule(token: "  - ", type: MarkdownLineStyle.unorderedCustomListIndentFirstOrder, removeFrom: .leading, shouldTrim: false),
 		LineRule(token: "- ",type : MarkdownLineStyle.unorderedList, removeFrom: .leading),
 		LineRule(token: "\t\t* ", type: MarkdownLineStyle.unorderedListIndentSecondOrder, removeFrom: .leading, shouldTrim: false),
 		LineRule(token: "\t* ", type: MarkdownLineStyle.unorderedListIndentFirstOrder, removeFrom: .leading, shouldTrim: false),
@@ -474,7 +476,12 @@ extension SwiftyMarkdown {
 			if markdownLineStyle == .orderedListIndentSecondOrder {
 				listItem = "\(self.orderedListIndentSecondOrderCount)."
 			}
-			
+        case .unorderedCustomListIndentFirstOrder:
+            self.orderedListIndentFirstOrderCount += 1
+            self.orderedListIndentSecondOrderCount = 0
+            
+        case .unorderedCustomListIndentSecondOrder:
+            self.orderedListIndentSecondOrderCount += 1
 		default:
 			self.orderedListCount = 0
 			self.orderedListIndentFirstOrderCount = 0
@@ -531,7 +538,31 @@ extension SwiftyMarkdown {
 
 			attributes[.paragraphStyle] = paragraphStyle
 			finalTokens.insert(Token(type: .string, inputString: "\(indent)\(listItem)\t"), at: 0)
-			
+        case .unorderedCustomListIndentFirstOrder, .unorderedCustomListIndentSecondOrder:
+            
+            let interval : CGFloat = 15
+            var addition = interval
+            var indent = ""
+            switch line.lineStyle as! MarkdownLineStyle {
+            case .unorderedCustomListIndentFirstOrder:
+                addition = interval * 2
+                indent = "  "
+            case .unorderedCustomListIndentSecondOrder:
+                addition = interval * 3
+                indent = "    "
+            default:
+                break
+            }
+            
+            lineProperties = body
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: interval, options: [:]), NSTextTab(textAlignment: .left, location: interval, options: [:])]
+            paragraphStyle.defaultTabInterval = interval
+            paragraphStyle.headIndent = addition
+
+            attributes[.paragraphStyle] = paragraphStyle
+            finalTokens.insert(Token(type: .string, inputString: "\(indent)\(listItem)\t"), at: 0)
 		case .yaml:
 			lineProperties = body
 		case .previousH1:
